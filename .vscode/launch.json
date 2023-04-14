@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Android Emulator 1",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId": "emulator-5554",
+            "program": "lib/main.dart",
+            "args": ["--no-sound-null-safety"]
+        },
+        {
+            "name": "whatsapp_clone",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "whatsapp_clone (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "whatsapp_clone (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
