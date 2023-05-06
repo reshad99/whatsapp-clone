@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whatsapp_clone/common/enums/file_type.dart';
@@ -120,8 +117,43 @@ class StatusRepository {
     return checkIfStoryExists;
   }
 
+  Stream<List<UserModel>> getWhoHasSeen(String statusUrl) {
+    try {
+      return firestore
+          .collection('statuses')
+          .doc(auth.currentUser!.uid)
+          .collection('stories')
+          .where('url', isEqualTo: statusUrl)
+          .limit(1)
+          .snapshots()
+          .map((stories) {
+        List<UserModel> users = [];
+        if (stories.docs.isNotEmpty) {
+          var story = stories.docs.first;
+          Story storyModel = Story.fromMap(story.data());
+          for (var userId in storyModel.whoHasSeen) {}
+        }
+
+        if (users.isEmpty) {
+          ref
+              .read(authControllerProvider)
+              .userDataById('aIKIvL5ZAUXgyfF7XIbuLuP1NhH3')
+              .then((user) {
+            users.add(user);
+          });
+        }
+        return users;
+      });
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<List<Status>> getOtherStatuses() async {
     List<Status> statuses = [];
+    var hours = DateTime.now()
+        .subtract(const Duration(hours: 24))
+        .millisecondsSinceEpoch;
     final contacts = await ref.read(getContactsProvider.future);
     debugPrint('contact List $contacts');
     try {
@@ -130,19 +162,18 @@ class StatusRepository {
         debugPrint('PHone Number $phoneNumber');
         var statusQuery = await firestore
             .collection('statuses')
-            .where('lastUpdate',
-                isGreaterThan: DateTime.now()
-                    .subtract(const Duration(hours: 24)).millisecondsSinceEpoch)
-            .where('phoneNumber', isEqualTo: phoneNumber)
-            .where('senderUid', isNotEqualTo: auth.currentUser!.uid)
+            .where('lastUpdate', isGreaterThan: hours)
             .get();
 
         List<Future<UserModel?>> futures = [];
         for (var doc in statusQuery.docs) {
           final status = Status.fromMap(doc.data());
-          futures.add(
-            ref.read(authControllerProvider).userDataById(status.senderUid),
-          );
+          if (status.phoneNumber == phoneNumber &&
+              status.senderUid != auth.currentUser!.uid) {
+            futures.add(
+              ref.read(authControllerProvider).userDataById(status.senderUid),
+            );
+          }
         }
         List<UserModel?> senderUsers = await Future.wait(futures);
         for (int i = 0; i < statusQuery.docs.length; i++) {

@@ -15,6 +15,8 @@ import 'package:whatsapp_clone/features/status/controller/status_controller.dart
 import 'package:whatsapp_clone/features/status/screens/components/status_item.dart';
 import 'package:whatsapp_clone/models/status.dart';
 import 'package:whatsapp_clone/models/user.dart';
+import 'package:whatsapp_clone/services/local_database.dart';
+import 'package:whatsapp_clone/services/locator.dart';
 
 class StatusScreen extends ConsumerStatefulWidget {
   const StatusScreen({super.key});
@@ -28,13 +30,15 @@ class _StatusScreenState extends ConsumerState<StatusScreen> {
   Widget build(BuildContext context) {
     final authController = ref.watch(authControllerProvider);
     final statusController = ref.watch(statusControllerProvider);
+    final localDB = getIt<LocalDatabase>();
     return FutureBuilder(
+      initialData: UserModel.fromMap(localDB.get('auth')),
       future: authController.auth(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingScreen();
+        UserModel? userData;
+        if (snapshot.hasData) {
+          userData = snapshot.data;
         }
-        final userData = snapshot.requireData;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,10 +46,10 @@ class _StatusScreenState extends ConsumerState<StatusScreen> {
             FutureBuilder<bool>(
               future: statusController.checkOwnStatuses(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SizedBox();
+                bool isFirst = true;
+                if (snapshot.hasData) {
+                  isFirst = !snapshot.data!;
                 }
-                final isFirst = !snapshot.data!;
                 return StatusItem(
                   uid: FirebaseAuth.instance.currentUser!.uid,
                   isFirst: isFirst,

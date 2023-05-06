@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:whatsapp_clone/common/utils/helpers.dart';
 import 'package:whatsapp_clone/models/user.dart';
 import 'package:whatsapp_clone/services/firebase_storage.dart';
+import 'package:whatsapp_clone/services/local_database.dart';
+import 'package:whatsapp_clone/services/locator.dart';
 
 final authRepositoryProvider = Provider((ref) {
   return AuthRepository(
@@ -31,6 +33,8 @@ class AuthRepository {
     UserModel? userModel;
 
     if (userData.data() != null) {
+      var localDB = getIt<LocalDatabase>();
+      localDB.store('auth', userData.data());
       userModel = UserModel.fromMap(userData.data()!);
       debugPrint(userModel.name);
     }
@@ -105,6 +109,10 @@ class AuthRepository {
           isOnline: true,
           token: '',
           groupId: []);
+
+      //save to Local Database
+      final localDB = getIt<LocalDatabase>();
+      localDB.store('auth', user.toMap());
 
       await fireStore.collection('users').doc(uid).set(user.toMap());
       Future.microtask(() => Navigator.pushNamedAndRemoveUntil(

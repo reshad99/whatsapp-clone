@@ -6,10 +6,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/status/repository/status_repository.dart';
 import 'package:whatsapp_clone/models/status.dart';
 import 'package:whatsapp_clone/models/story.dart';
+import 'package:whatsapp_clone/models/user.dart';
 
 final statusControllerProvider = Provider((ref) {
   final statusRepo = ref.read(statusRepositoryProvider);
   return StatusController(statusRepository: statusRepo, ref: ref);
+});
+
+final currentStatusUrlProvider = StateProvider<String>((ref) {
+  return '';
 });
 
 class StatusController {
@@ -36,5 +41,9 @@ class StatusController {
       BuildContext context, String statusId) {
     return statusRepository.getStoriesByStatus(
         statusId: statusId, context: context);
+  }
+
+  Stream<List<UserModel>> getWhoHasSeen(String statusUrl) {
+    return statusRepository.getWhoHasSeen(statusUrl);
   }
 }
