@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/common/enums/file_type.dart';
-import 'package:whatsapp_clone/common/enums/message_enum.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/enums/file_type.dart';
+import 'package:whatsapp_clone/core/enums/message_enum.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 
 class UserInformationScreen extends ConsumerStatefulWidget {

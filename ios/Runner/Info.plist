@@ -51,5 +51,7 @@
 		<string>Needs to hear sounds</string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string>Needs to use mic.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Needs to use caemra.</string>
 	</dict>
 </plist>

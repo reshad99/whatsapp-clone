@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/common/widgets/custom_error_screen.dart';
-import 'package:whatsapp_clone/common/widgets/loading_screen.dart';
+import 'package:whatsapp_clone/core/widgets/custom_error_screen.dart';
+import 'package:whatsapp_clone/core/widgets/loading_screen.dart';
 import 'package:whatsapp_clone/features/select_contacts/controller/select_contacts_controller.dart';
 import 'package:whatsapp_clone/features/select_contacts/screens/components/contact_widget.dart';
 

@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
-import 'package:whatsapp_clone/common/enums/file_type.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/enums/file_type.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/select_contacts/controller/select_contacts_controller.dart';
 import 'package:whatsapp_clone/models/status.dart';
@@ -77,7 +77,7 @@ class StatusRepository {
       var path = await ref
           .read(firebaseStorageServiceProvider)
           .storeFileToFirebase('/status/$storyId', file);
-      Story story = Story(path, text, createdAt, [], fileType);
+      Story story = Story(storyId, path, text, createdAt, [], fileType);
 
       await firestore
           .collection('statuses')
@@ -117,35 +117,45 @@ class StatusRepository {
     return checkIfStoryExists;
   }
 
-  Stream<List<UserModel>> getWhoHasSeen(String statusUrl) {
-    try {
-      return firestore
-          .collection('statuses')
-          .doc(auth.currentUser!.uid)
-          .collection('stories')
-          .where('url', isEqualTo: statusUrl)
-          .limit(1)
-          .snapshots()
-          .map((stories) {
-        List<UserModel> users = [];
-        if (stories.docs.isNotEmpty) {
-          var story = stories.docs.first;
-          Story storyModel = Story.fromMap(story.data());
-          for (var userId in storyModel.whoHasSeen) {}
-        }
+  Stream<List<UserModel>> getWhoHasSeen(String statusUid) {
+    debugPrint('statusUid $statusUid');
+    if (statusUid.isEmpty) {
+      statusUid = '212280ce-7457-4ff8-b484-ff9504ff43d1';
+    }
+    return firestore
+        .collection('statuses')
+        .doc(auth.currentUser!.uid)
+        .collection('stories')
+        .doc(statusUid)
+        .snapshots()
+        .asyncMap((story) async {
+      Story storyModel = Story.fromMap(story.data()!);
+      List<Future<UserModel?>> futures = [];
+      for (var userId in storyModel.whoHasSeen) {
+        futures.add(ref.read(authControllerProvider).userDataById(userId));
+      }
+      List<UserModel?> senderUsers = await Future.wait(futures);
+      List<UserModel> users = senderUsers
+          .where((user) => user != null)
+          .map((user) => user!)
+          .toList();
+      return users;
+    });
+  }
 
-        if (users.isEmpty) {
-          ref
-              .read(authControllerProvider)
-              .userDataById('aIKIvL5ZAUXgyfF7XIbuLuP1NhH3')
-              .then((user) {
-            users.add(user);
-          });
-        }
-        return users;
+  Future<void> viewStory(String statusId, String storyId) async {
+    DocumentReference storyRef = firestore
+        .collection('statuses')
+        .doc(statusId)
+        .collection('stories')
+        .doc(storyId);
+    var story = await storyRef.get();
+    Story storyModel = Story.fromMap(story.data() as Map<String, dynamic>);
+
+    if (!storyModel.whoHasSeen.contains(auth.currentUser!.uid)) {
+      await storyRef.update({
+        'whoHasSeen': FieldValue.arrayUnion([auth.currentUser!.uid])
       });
-    } catch (e) {
-      throw Exception(e);
     }
   }
 
@@ -155,38 +165,40 @@ class StatusRepository {
         .subtract(const Duration(hours: 24))
         .millisecondsSinceEpoch;
     final contacts = await ref.read(getContactsProvider.future);
-    debugPrint('contact List $contacts');
     try {
       for (var contact in contacts) {
         var phoneNumber = contact!.phones[0].number.replaceAll(' ', '');
-        debugPrint('PHone Number $phoneNumber');
         var statusQuery = await firestore
             .collection('statuses')
             .where('lastUpdate', isGreaterThan: hours)
             .get();
 
         List<Future<UserModel?>> futures = [];
-        for (var doc in statusQuery.docs) {
-          final status = Status.fromMap(doc.data());
-          if (status.phoneNumber == phoneNumber &&
-              status.senderUid != auth.currentUser!.uid) {
-            futures.add(
-              ref.read(authControllerProvider).userDataById(status.senderUid),
-            );
+        if (statusQuery.docs.isNotEmpty) {
+          for (var doc in statusQuery.docs) {
+            final status = Status.fromMap(doc.data());
+            if (status.phoneNumber == phoneNumber &&
+                status.senderUid != auth.currentUser!.uid) {
+              futures.add(
+                ref.read(authControllerProvider).userDataById(status.senderUid),
+              );
+            }
           }
-        }
-        List<UserModel?> senderUsers = await Future.wait(futures);
-        for (int i = 0; i < statusQuery.docs.length; i++) {
-          final status = Status.fromMap(statusQuery.docs[i].data());
-          final statusAttachment = status.copyWith(
-            user: senderUsers[i],
-          );
-          statuses.add(statusAttachment);
+          List<UserModel?> senderUsers = await Future.wait(futures);
+          for (int i = 0; i < statusQuery.docs.length; i++) {
+            final status = Status.fromMap(statusQuery.docs[i].data());
+            final statusAttachment = status.copyWith(
+              user: senderUsers[i],
+            );
+            statuses.add(statusAttachment);
+          }
+        } else {
+          debugPrint('Statuses are empty');
         }
       }
     } catch (e) {
       if (kDebugMode) {
-        debugPrint('get other statuse error $e');
+        debugPrint('get other statuses error $e');
       }
     }
     return statuses;

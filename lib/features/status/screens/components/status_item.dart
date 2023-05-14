@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/utils/colors.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/status/controller/status_controller.dart';
 import 'package:whatsapp_clone/models/story.dart';
@@ -24,12 +24,11 @@ class StatusItem extends ConsumerWidget {
 
   List<Story> stories = [];
   UserModel? user;
- 
+
   void getStories(WidgetRef ref, BuildContext context) async {
     stories = await ref
-      .read(statusControllerProvider)
+        .read(statusControllerProvider)
         .getStoriesByStatusId(context, uid);
-    debugPrint('stories $stories');
     user = await ref.read(authControllerProvider).userDataById(uid);
   }
 
@@ -41,6 +40,7 @@ class StatusItem extends ConsumerWidget {
         if (isFirst) {
           return selectImageForStatus(context);
         } else {
+          ref.read(currentStatusUidProvider.notifier).update((state) => uid);
           Future.microtask(() => Navigator.pushNamed(context, '/story-view',
               arguments: {'stories': stories, 'user': user}));
         }

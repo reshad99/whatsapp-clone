@@ -13,7 +13,11 @@ final statusControllerProvider = Provider((ref) {
   return StatusController(statusRepository: statusRepo, ref: ref);
 });
 
-final currentStatusUrlProvider = StateProvider<String>((ref) {
+final currentStatusUidProvider = StateProvider<String>((ref) {
+  return '';
+});
+
+final currentStoryUidProvider = StateProvider<String>((ref) {
   return '';
 });
 
@@ -43,7 +47,11 @@ class StatusController {
         statusId: statusId, context: context);
   }
 
-  Stream<List<UserModel>> getWhoHasSeen(String statusUrl) {
-    return statusRepository.getWhoHasSeen(statusUrl);
+  Stream<List<UserModel>> getWhoHasSeen(String statusUid) {
+    return statusRepository.getWhoHasSeen(statusUid);
+  }
+
+  Future<void> viewStatus(String statusId, String storyId) {
+    return statusRepository.viewStory(statusId, storyId);
   }
 }

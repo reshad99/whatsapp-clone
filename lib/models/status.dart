@@ -27,7 +27,7 @@ class Status {
     return Status(
       senderUid: map['senderUid'] as String,
       phoneNumber: map['phoneNumber'] as String,
-      lastUpdate: (map['lastUpdate'] as Timestamp).toDate(),
+      lastUpdate: DateTime.fromMillisecondsSinceEpoch(map['lastUpdate'] as int),
     );
   }
 

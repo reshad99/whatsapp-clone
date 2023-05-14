@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:whatsapp_clone/common/enums/message_enum.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/enums/message_enum.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 import 'package:whatsapp_clone/features/chat/screens/components/date_and_seen.dart';
 
 class AudioCard extends StatelessWidget {

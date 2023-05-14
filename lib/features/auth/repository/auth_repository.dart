@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 import 'package:whatsapp_clone/models/user.dart';
 import 'package:whatsapp_clone/services/firebase_storage.dart';
 import 'package:whatsapp_clone/services/local_database.dart';

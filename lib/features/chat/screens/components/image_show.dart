@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/common/widgets/zoom_image.dart';
+import 'package:whatsapp_clone/core/widgets/zoom_image.dart';
 
 class ImageShow extends StatefulWidget {
   const ImageShow({required this.url, super.key});

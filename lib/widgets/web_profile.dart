@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/core/utils/colors.dart';
 
 class WebProfileBar extends StatelessWidget {
   const WebProfileBar({super.key});

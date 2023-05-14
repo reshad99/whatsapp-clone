@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:whatsapp_clone/common/enums/message_enum.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/enums/message_enum.dart';
+import 'package:whatsapp_clone/core/utils/colors.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 import 'package:whatsapp_clone/features/chat/screens/components/image_card.dart';
 import 'package:whatsapp_clone/features/chat/screens/components/text_card.dart';
 import 'package:whatsapp_clone/models/message.dart';

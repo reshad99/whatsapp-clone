@@ -13,10 +13,34 @@ packages:
     dependency: transitive
     description:
       name: _flutterfire_internals
-      sha256: f175bc1414e4edf8c5b83372c98eeabecf8353f39c9da423c2cfdf1f1f508788
+      sha256: "867b77e2367bc502dcd4d5a66302615409f04eb20ed82ba1c0ba073f9107e018"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
+  agora_rtc_engine:
+    dependency: transitive
+    description:
+      name: agora_rtc_engine
+      sha256: "5463ac139a2f79b476352ae1c4565b2548e44185b532c1490b0c91f1a8ac6f70"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.1"
+  agora_rtm:
+    dependency: transitive
+    description:
+      name: agora_rtm
+      sha256: cc4881804ad027388b1871bf7d2881fe7903fb4328f16a8e5eb083ad0adf537f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
+  agora_uikit:
+    dependency: "direct main"
+    description:
+      name: agora_uikit
+      sha256: "5fcc6cc5a5d7f5973a0cfc1db918b35c6941b67127388a75cff9d99c2a593087"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.3"
   analyzer:
     dependency: transitive
     description:
@@ -401,6 +425,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  firebase_analytics:
+    dependency: "direct main"
+    description:
+      name: firebase_analytics
+      sha256: "7bafe86463bd50143a6a6493e7485c5605b6be0e2904650c0e5a59523e2f8e7b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.3.0"
+  firebase_analytics_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_analytics_platform_interface
+      sha256: ef83b385b72ebf30efaf34178cf17432e2820292783c68ede52e251b815126d8
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.0"
+  firebase_analytics_web:
+    dependency: transitive
+    description:
+      name: firebase_analytics_web
+      sha256: "0e9739785534dfb881ac5593c74e92ee988787ff6ac5662c7afab5e4b5676540"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.3"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -429,26 +477,26 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_core
-      sha256: ed611fb8e67e43ecc7956f242cecca383d87cf71aace27287aa5dd4bdba4ac07
+      sha256: dcf54c170c5371ad0e79229d0fb372c58262ae0968b7de222bf28e51dd236be0
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.0"
+    version: "2.11.0"
   firebase_core_platform_interface:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_core_platform_interface
-      sha256: "0df0a064ab0cad7f8836291ca6f3272edd7b83ad5b3540478ee46a0849d8022b"
+      sha256: ae79f335f6c7f2dadb00c98c429da2ca905d265e0225fb5e7dfa62ac3accad48
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.7.0"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
-      sha256: "347351a8f0518f3343d79a9a0690fa67ad232fc32e2ea270677791949eac792b"
+      sha256: e57ef862257a0d977c1308d02e2fbb9b68525e6d85711b08f3df8cec836fb444
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   firebase_messaging:
     dependency: "direct main"
     description:
@@ -776,6 +824,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  iris_method_channel:
+    dependency: transitive
+    description:
+      name: iris_method_channel
+      sha256: "5bd4f6ca1573744232bed153d30473ec6607cdc5e7ba9a45eaa9ae427cd7cc7d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0-rc.5"
   js:
     dependency: transitive
     description:

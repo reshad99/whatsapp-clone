@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/models/user.dart';
 
@@ -25,19 +25,14 @@ class SelectContactRepository {
       if (await FlutterContacts.requestPermission()) {
         List<Contact> contacts =
             await FlutterContacts.getContacts(withProperties: true);
-          debugPrint(contacts.toString());
+        debugPrint(contacts.toString());
 
-
-        selectedContacts = await Future.wait(contacts.map((contact) async {
+        await Future.wait(contacts.map((contact) async {
           var bool = await contactCheck(contact);
           if (bool) {
-            return contact;
-          } else {
-            return null;
+            selectedContacts.add(contact);
           }
         }));
-        selectedContacts =
-            selectedContacts.where((contact) => contact != null).toList();
       }
     } catch (e) {
       debugPrint(e.toString());

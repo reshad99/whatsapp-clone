@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
-import 'package:whatsapp_clone/common/widgets/custom_error_screen.dart';
-import 'package:whatsapp_clone/common/widgets/loading_screen.dart';
+import 'package:whatsapp_clone/core/utils/colors.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
+import 'package:whatsapp_clone/core/widgets/custom_error_screen.dart';
+import 'package:whatsapp_clone/core/widgets/loading_screen.dart';
 import 'package:whatsapp_clone/features/chat/controller/chat_controller.dart';
 
 class ContactsList extends ConsumerWidget {

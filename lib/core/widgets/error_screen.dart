@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
+import 'package:whatsapp_clone/core/utils/colors.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});

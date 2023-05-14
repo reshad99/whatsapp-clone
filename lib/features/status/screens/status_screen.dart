@@ -6,10 +6,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:whatsapp_clone/common/enums/file_type.dart';
-import 'package:whatsapp_clone/common/utils/colors.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
-import 'package:whatsapp_clone/common/widgets/loading_screen.dart';
+import 'package:whatsapp_clone/core/enums/file_type.dart';
+import 'package:whatsapp_clone/core/utils/colors.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
+import 'package:whatsapp_clone/core/widgets/loading_screen.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/status/controller/status_controller.dart';
 import 'package:whatsapp_clone/features/status/screens/components/status_item.dart';

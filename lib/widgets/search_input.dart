@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/common/utils/helpers.dart';
+import 'package:whatsapp_clone/core/utils/helpers.dart';
 
 class SearchInput extends StatefulWidget {
   const SearchInput({

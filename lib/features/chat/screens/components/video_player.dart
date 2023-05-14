@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_player/video_player.dart';
-import 'package:whatsapp_clone/common/widgets/loading_screen.dart';
+import 'package:whatsapp_clone/core/widgets/loading_screen.dart';
 
 class VideoPlayerWidget extends ConsumerStatefulWidget {
   const VideoPlayerWidget({required this.videoUrl, super.key});

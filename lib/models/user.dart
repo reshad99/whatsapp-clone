@@ -79,4 +79,9 @@ class UserModel extends HiveObject {
       token: token ?? this.token,
     );
   }
+
+  @override
+  String toString() {
+    return "$name $uid";
+  }
 }
