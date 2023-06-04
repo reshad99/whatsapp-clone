@@ -28,7 +28,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
   void initState() {
     super.initState();
     String baseUrl =
-        'http://127.0.0.1:8000/generate-agora-token/${widget.channelId}/${widget.call.callerId}';
+        'https://test.bakudevs.com/generate-agora-token/${widget.channelId}/${widget.call.callerId}';
     client = AgoraClient(
         agoraConnectionData: AgoraConnectionData(
             appId: AgoraConfig.appID,
